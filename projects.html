@@ -10,20 +10,20 @@
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
         body { background-color: #06090d; font-family: 'Ubuntu Mono', monospace; min-height: 100vh; color: #c8d4a0; }
         canvas { position: fixed; inset: 0; z-index: 0; }
-        nav { position: fixed; top: 1.6rem; left: 2rem; z-index: 10; display: flex; gap: 1.6rem; }
+        nav { position: fixed; top: 1.8rem; left: 2rem; z-index: 10; display: flex; gap: 2.5rem; background: rgba(6,9,13,.6); backdrop-filter: blur(12px); padding: .6rem 1.6rem; border-radius: 30px; border: 1px solid rgba(60,90,25,.25); }
         nav a { color: #4a5e2e; font-size: 0.8rem; text-decoration: none; letter-spacing: 1px; transition: color .2s; }
         nav a:hover { color: #8a9e52; }
-        nav a.active { color: #2d5a1b; }
-        .page { position: relative; z-index: 1; max-width: 680px; margin: 0 auto; padding: 6rem 2rem 4rem; }
+        nav a.active { color: #7a9040; }
+        .page { position: relative; z-index: 1; max-width: 720px; margin: 0 auto; padding: 6rem 2rem 4rem; }
         h1 { font-family: 'Righteous', cursive; font-size: 2rem; color: #2d5a1b; letter-spacing: 2px; margin-bottom: .4rem; }
         .sub { font-size: .72rem; color: #3a4e20; letter-spacing: 1px; margin-bottom: 2.5rem; border-bottom: 1px solid rgba(60,90,25,.25); padding-bottom: 1.2rem; }
-        .list { display: flex; flex-direction: column; gap: .9rem; }
-        .item { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1rem 1.4rem; border: 1px solid rgba(60,90,25,.25); border-radius: 8px; background: rgba(10,20,8,.4); transition: border-color .2s, background .2s; }
+        .list { display: flex; flex-direction: column; gap: 1.2rem; }
+        .item { display: flex; align-items: center; gap: 1.4rem; padding: 1rem 1.4rem; border: 1px solid rgba(60,90,25,.25); border-radius: 8px; background: rgba(10,20,8,.4); transition: border-color .2s, background .2s; }
         .item:hover { border-color: rgba(80,130,30,.5); background: rgba(20,40,10,.5); }
-        .item-left { display: flex; align-items: center; gap: .9rem; }
-        .item-icon { color: #2d5a1b; font-size: 1rem; flex-shrink: 0; }
-        .item-title { font-size: .85rem; color: #a0b880; letter-spacing: .3px; }
-        .item-desc { font-size: .7rem; color: #3e5228; margin-top: .2rem; }
+        .item-cover { width: 56px; height: 74px; object-fit: cover; border-radius: 4px; flex-shrink: 0; border: 1px solid rgba(60,90,25,.3); }
+        .item-info { flex: 1; }
+        .item-title { font-size: .88rem; color: #a0b880; letter-spacing: .3px; margin-bottom: .25rem; }
+        .item-desc { font-size: .7rem; color: #3e5228; }
         .item-dl { display: flex; align-items: center; gap: .4rem; color: #2d5a1b; font-size: .72rem; text-decoration: none; border: 1px solid rgba(60,90,25,.4); padding: .3rem .8rem; border-radius: 4px; white-space: nowrap; transition: all .2s; flex-shrink: 0; }
         .item-dl:hover { background: rgba(60,90,25,.2); color: #7a9e40; border-color: rgba(100,150,40,.5); }
         footer { position: relative; z-index: 1; text-align: center; padding: 2rem; font-size: .65rem; color: #1e2e12; letter-spacing: 2px; }
@@ -41,36 +41,12 @@
     <div class="list">
 
         <div class="item">
-            <div class="item-left">
-                <i class="fas fa-file-pdf item-icon"></i>
-                <div>
-                    <div class="item-title">Belge Adı</div>
-                    <div class="item-desc">kısa açıklama</div>
-                </div>
+            <img src="signal-2026-04-02-214152.png" class="item-cover" alt="kapak">
+            <div class="item-info">
+                <div class="item-title">Yaşamın Özü Komün</div>
+                <div class="item-desc">Ciwan Rênas Komünü · 2025</div>
             </div>
-            <a href="#" class="item-dl"><i class="fas fa-download"></i> indir</a>
-        </div>
-
-        <div class="item">
-            <div class="item-left">
-                <i class="fas fa-file-pdf item-icon"></i>
-                <div>
-                    <div class="item-title">Belge Adı</div>
-                    <div class="item-desc">kısa açıklama</div>
-                </div>
-            </div>
-            <a href="#" class="item-dl"><i class="fas fa-download"></i> indir</a>
-        </div>
-
-        <div class="item">
-            <div class="item-left">
-                <i class="fas fa-file-pdf item-icon"></i>
-                <div>
-                    <div class="item-title">Belge Adı</div>
-                    <div class="item-desc">kısa açıklama</div>
-                </div>
-            </div>
-            <a href="#" class="item-dl"><i class="fas fa-download"></i> indir</a>
+            <a href="Yaşamın Özü Komün | Ciwan Rênas 2025.pdf" class="item-dl" download><i class="fas fa-download"></i> indir</a>
         </div>
 
     </div>
