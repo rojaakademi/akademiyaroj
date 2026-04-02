@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akademîya Roj | Projects</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Ubuntu+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: #06090d; font-family: 'Ubuntu Mono', monospace; min-height: 100vh; color: #c8d4a0; }
+        canvas { position: fixed; inset: 0; z-index: 0; }
+        nav { position: fixed; top: 1.6rem; left: 2rem; z-index: 10; display: flex; gap: 1.6rem; }
+        nav a { color: #4a5e2e; font-size: 0.8rem; text-decoration: none; letter-spacing: 1px; transition: color .2s; }
+        nav a:hover { color: #8a9e52; }
+        nav a.active { color: #2d5a1b; }
+        .page { position: relative; z-index: 1; max-width: 680px; margin: 0 auto; padding: 6rem 2rem 4rem; }
+        h1 { font-family: 'Righteous', cursive; font-size: 2rem; color: #2d5a1b; letter-spacing: 2px; margin-bottom: .4rem; }
+        .sub { font-size: .72rem; color: #3a4e20; letter-spacing: 1px; margin-bottom: 2.5rem; border-bottom: 1px solid rgba(60,90,25,.25); padding-bottom: 1.2rem; }
+        .list { display: flex; flex-direction: column; gap: .9rem; }
+        .item { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1rem 1.4rem; border: 1px solid rgba(60,90,25,.25); border-radius: 8px; background: rgba(10,20,8,.4); transition: border-color .2s, background .2s; }
+        .item:hover { border-color: rgba(80,130,30,.5); background: rgba(20,40,10,.5); }
+        .item-left { display: flex; align-items: center; gap: .9rem; }
+        .item-icon { color: #2d5a1b; font-size: 1rem; flex-shrink: 0; }
+        .item-title { font-size: .85rem; color: #a0b880; letter-spacing: .3px; }
+        .item-desc { font-size: .7rem; color: #3e5228; margin-top: .2rem; }
+        .item-dl { display: flex; align-items: center; gap: .4rem; color: #2d5a1b; font-size: .72rem; text-decoration: none; border: 1px solid rgba(60,90,25,.4); padding: .3rem .8rem; border-radius: 4px; white-space: nowrap; transition: all .2s; flex-shrink: 0; }
+        .item-dl:hover { background: rgba(60,90,25,.2); color: #7a9e40; border-color: rgba(100,150,40,.5); }
+        footer { position: relative; z-index: 1; text-align: center; padding: 2rem; font-size: .65rem; color: #1e2e12; letter-spacing: 2px; }
+    </style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<nav>
+    <a href="index.html">home</a>
+    <a href="projects.html" class="active">projects</a>
+</nav>
+<div class="page">
+    <h1>Projects</h1>
+    <div class="sub">pdf arşivi</div>
+    <div class="list">
+
+        <div class="item">
+            <div class="item-left">
+                <i class="fas fa-file-pdf item-icon"></i>
+                <div>
+                    <div class="item-title">Belge Adı</div>
+                    <div class="item-desc">kısa açıklama</div>
+                </div>
+            </div>
+            <a href="#" class="item-dl"><i class="fas fa-download"></i> indir</a>
+        </div>
+
+        <div class="item">
+            <div class="item-left">
+                <i class="fas fa-file-pdf item-icon"></i>
+                <div>
+                    <div class="item-title">Belge Adı</div>
+                    <div class="item-desc">kısa açıklama</div>
+                </div>
+            </div>
+            <a href="#" class="item-dl"><i class="fas fa-download"></i> indir</a>
+        </div>
+
+        <div class="item">
+            <div class="item-left">
+                <i class="fas fa-file-pdf item-icon"></i>
+                <div>
+                    <div class="item-title">Belge Adı</div>
+                    <div class="item-desc">kısa açıklama</div>
+                </div>
+            </div>
+            <a href="#" class="item-dl"><i class="fas fa-download"></i> indir</a>
+        </div>
+
+    </div>
+</div>
+<footer>akademîya roj — 2026</footer>
+<script>
+const cvs=document.getElementById('c'),ctx=cvs.getContext('2d');let W,H;const mx={x:-999,y:-999},pts=[];const N=120,DIST=150,MDIST=190;
+function resize(){W=cvs.width=window.innerWidth;H=cvs.height=window.innerHeight;}
+class P{constructor(){this.reset();}reset(){this.x=Math.random()*W;this.y=Math.random()*H;this.vx=(Math.random()-.5)*.4;this.vy=(Math.random()-.5)*.4;this.sz=Math.random()*2+.5;this.a=Math.random()*.55+.2;}move(){this.x+=this.vx;this.y+=this.vy;if(this.x<0||this.x>W)this.vx*=-1;if(this.y<0||this.y>H)this.vy*=-1;}draw(){ctx.beginPath();ctx.arc(this.x,this.y,this.sz,0,Math.PI*2);ctx.fillStyle=`rgba(90,120,45,${this.a})`;ctx.fill();}}
+function init(){resize();pts.length=0;for(let i=0;i<N;i++)pts.push(new P());}
+function loop(){ctx.clearRect(0,0,W,H);for(let i=0;i<pts.length;i++){pts[i].move();pts[i].draw();for(let j=i+1;j<pts.length;j++){const dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y,d=Math.hypot(dx,dy);if(d<DIST){ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);ctx.strokeStyle=`rgba(60,90,25,${(1-d/DIST)*.25})`;ctx.lineWidth=.8;ctx.stroke();}}const dx=pts[i].x-mx.x,dy=pts[i].y-mx.y,d=Math.hypot(dx,dy);if(d<MDIST){ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(mx.x,mx.y);ctx.strokeStyle=`rgba(100,140,45,${(1-d/MDIST)*.6})`;ctx.lineWidth=.8;ctx.stroke();}}requestAnimationFrame(loop);}
+window.addEventListener('resize',resize);window.addEventListener('mousemove',e=>{mx.x=e.clientX;mx.y=e.clientY;});window.addEventListener('mouseleave',()=>{mx.x=-999;mx.y=-999;});window.addEventListener('touchmove',e=>{mx.x=e.touches[0].clientX;mx.y=e.touches[0].clientY;},{passive:true});
+init();loop();
+</script>
+</body>
+</html>

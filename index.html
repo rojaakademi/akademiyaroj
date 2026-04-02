@@ -4,50 +4,60 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Akademîya Roj</title>
-    <meta name="description" content="Akademîya Roj | bilgi, kültür, direniş">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Ubuntu+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background-color: #000000; color: #ffffff; font-family: 'Inter', sans-serif; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 0rem; position: relative; overflow-x: hidden; }
-        #particles-js { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
-        .container { max-width: 600px; width: 100%; text-align: center; position: relative; z-index: 1; }
-        .profile-img { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; margin-bottom: 0rem; border: 2px solid #4A6B2F; box-shadow: 0 0 20px rgba(74, 107, 47, 0.3); transition: all 0.3s ease; }
-        .profile-img:hover { border-color: #6B9E3F; box-shadow: 0 0 30px rgba(107, 158, 63, 0.5); transform: scale(1.02); }
-        h1 { font-size: 3rem; font-weight: 700; letter-spacing: -0.025em; margin-bottom: 0.5rem; background: linear-gradient(135deg, #4A6B2F, #4A6B2F, #4A6B2F); background-size: 300% 300%; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: gradientShift 6s ease infinite; }
-        @media (min-width: 768px) { h1 { font-size: 4rem; } }
-        @keyframes gradientShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        .subtitle { font-size: 1rem; color: #9ca3af; margin-bottom: 0rem; }
-        .icons { display: flex; gap: 2rem; justify-content: center; margin-bottom: 0rem; flex-wrap: wrap; }
-        .icons a { color: #ffffff; opacity: 0.8; transition: all 0.2s ease; display: inline-block; }
-        .icons a:hover { opacity: 1; color: #6B9E3F; transform: translateY(-3px); }
-        .icons svg { width: 28px; height: 28px; fill: currentColor; }
-        .clock { display: flex; align-items: center; justify-content: center; gap: 0.5rem; font-size: 0.875rem; color: #6b7280; }
-        .clock svg { width: 14px; height: 14px; fill: currentColor; }
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: #06090d; font-family: 'Ubuntu Mono', monospace; height: 100vh; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+        canvas { position: fixed; inset: 0; z-index: 0; }
+        nav { position: fixed; top: 1.8rem; left: 2rem; z-index: 10; display: flex; gap: 2.5rem; background: rgba(6,9,13,.6); backdrop-filter: blur(12px); padding: .6rem 1.6rem; border-radius: 30px; border: 1px solid rgba(60,90,25,.25); }
+        nav a { color: #4a5e2e; font-size: 0.8rem; text-decoration: none; letter-spacing: 1px; transition: color .2s; }
+        nav a:hover { color: #8a9e52; }
+        .card { position: relative; z-index: 1; display: flex; align-items: center; gap: 5rem; animation: appear 1s ease both; }
+        @keyframes appear { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+        .avatar { width: 210px; height: 210px; border-radius: 50%; object-fit: cover; flex-shrink: 0; border: 2px solid #3a4e20; box-shadow: 0 0 0 10px rgba(30,50,10,.28), 0 0 70px rgba(60,90,20,.22); }
+        .right { display: flex; flex-direction: column; justify-content: center; gap: .7rem; }
+        .name { font-family: 'Righteous', cursive; font-size: 3.8rem; color: #2d5a1b; letter-spacing: 1px; line-height: 1; }
+        .quote { font-size: .78rem; color: #ffffff; letter-spacing: .5px; line-height: 1.7; font-style: italic; }
+        .icons { display: flex; gap: .85rem; padding-top: .3rem; }
+        .icons a { display: flex; align-items: center; justify-content: center; width: 48px; height: 48px; border-radius: 50%; background: rgba(80,110,30,.15); border: 1px solid rgba(80,110,30,.3); color: #7a9040; font-size: 1.3rem; text-decoration: none; transition: background .2s, color .2s, transform .2s, border-color .2s; }
+        .icons a:hover { background: rgba(100,140,35,.28); border-color: rgba(120,160,50,.6); color: #b0c870; transform: translateY(-3px); }
+        .clock { font-size: .72rem; color: #2e3e1a; display: flex; align-items: center; gap: .4rem; letter-spacing: .5px; }
+        @media (max-width: 700px) { body { overflow-y: auto; height: auto; padding: 5rem 1.5rem 3rem; } .card { flex-direction: column; text-align: center; gap: 1.8rem; } .avatar { width: 150px; height: 150px; } .name { font-size: 2.8rem; } .icons { justify-content: center; } }
     </style>
 </head>
 <body>
-    <div id="particles-js"></div>
-    <div class="container">
-        <img src="roj.jpg" alt="Akademîya Roj" class="profile-img">
-        <h1>Akademîya Roj</h1>
-        <p class="subtitle">bilgi, kültür, direniş</p>
+<canvas id="c"></canvas>
+<nav>
+    <a href="index.html">home</a>
+    <a href="projects.html">projects</a>
+</nav>
+<div class="card">
+    <img src="roj.jpg" class="avatar" alt="Akademîya Roj" onerror="this.style.display='none'">
+    <div class="right">
+        <div class="name">Akademîya Roj</div>
+        <div class="quote">"Çözümlenen an değil tarihtir;<br>kişi değil toplumdur."</div>
         <div class="icons">
-            <a href="https://www.instagram.com/akademiyaroj/" target="_blank"><svg viewBox="0 0 448 512"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg></a>
-            <a href="https://twitter.com/akademiyaroj" target="_blank"><svg viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg></a>
-            <a href="https://t.me/akademiyaroj" target="_blank"><svg viewBox="0 0 496 512"><path d="M248 8C111 8 0 119 0 256s111 248 248 248 248-111 248-248S385 8 248 8zm121.8 169.9l-40.7 191.8c-3 13.6-11.1 16.9-22.4 10.5l-62-45.7-29.9 28.8c-3.3 3.3-6.1 6.1-12.5 6.1l4.5-63.9 116.4-105.2c5.1-4.5-1.1-7-7.9-2.6l-143.9 90.5-62-19.4c-13.5-4.2-13.7-13.5 2.8-20l242.2-93.3c11.2-4.1 21.1 2.6 17.2 17.8z"/></svg></a>
-            <a href="mailto:rojakademi@proton.me"><svg viewBox="0 0 512 512"><path d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z"/></svg></a>
+            <a href="https://instagram.com/akademiyaroj" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://twitter.com/akademiyaroj" target="_blank" title="X / Twitter"><i class="fab fa-x-twitter"></i></a>
+            <a href="https://t.me/akademiyaroj" target="_blank" title="Telegram"><i class="fab fa-telegram"></i></a>
+            <a href="mailto:akademiyaroj@proton.me" title="E-posta"><i class="fas fa-envelope"></i></a>
         </div>
-        <div class="clock"><svg viewBox="0 0 512 512"><path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5 200-200 200zm61.8-104.4l-84.9-61.7c-3.1-2.3-4.9-5.9-4.9-9.7V116c0-6.6 5.4-12 12-12h32c6.6 0 12 5.4 12 12v141.7l66.8 48.6c5.4 3.9 6.5 11.4 2.6 16.8L334.6 349c-3.9 5.3-11.4 6.5-16.8 2.6z"/></svg><span id="clock-display"></span></div>
+        <div class="clock"><i class="far fa-clock"></i><span id="clk">—</span></div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-    <script>
-        particlesJS("particles-js", {
-            "particles": { "number": { "value": 240, "density": { "enable": true, "value_area": 800 } }, "color": { "value": ["#4A6B2F", "#6B9E3F", "#3B5E2B"] }, "shape": { "type": "circle" }, "opacity": { "value": 0.6, "random": true, "anim": { "enable": true, "speed": 1, "opacity_min": 0.2 } }, "size": { "value": 3, "random": true, "anim": { "enable": true, "speed": 2, "size_min": 0.5 } }, "line_linked": { "enable": true, "distance": 120, "color": "#6B9E3F", "opacity": 0.3, "width": 1 }, "move": { "enable": true, "speed": 2, "direction": "none", "random": true, "out_mode": "out" } },
-            "interactivity": { "events": { "onhover": { "enable": true, "mode": "repulse" }, "onclick": { "enable": true, "mode": "push" } }, "modes": { "repulse": { "distance": 100 }, "push": { "particles_nb": 4 } } },
-            "retina_detect": true
-        });
-        function updateClock() { const now = new Date(); const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']; const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']; const day = days[now.getDay()], month = months[now.getMonth()], date = now.getDate(); let hours = now.getHours(); const minutes = String(now.getMinutes()).padStart(2, '0'), seconds = String(now.getSeconds()).padStart(2, '0'); const ampm = hours >= 12 ? 'PM' : 'AM'; hours = hours % 12 || 12; document.getElementById('clock-display').textContent = `${day}, ${month} ${date} • ${hours}:${minutes}:${seconds} ${ampm}`; }
-        updateClock(); setInterval(updateClock, 1000);
-    </script>
+</div>
+<script>
+const cvs=document.getElementById('c'),ctx=cvs.getContext('2d');let W,H;const mx={x:-999,y:-999},pts=[];const N=120,DIST=150,MDIST=190;
+function resize(){W=cvs.width=window.innerWidth;H=cvs.height=window.innerHeight;}
+class P{constructor(){this.reset();}reset(){this.x=Math.random()*W;this.y=Math.random()*H;this.vx=(Math.random()-.5)*.4;this.vy=(Math.random()-.5)*.4;this.sz=Math.random()*2+.5;this.a=Math.random()*.55+.2;}move(){this.x+=this.vx;this.y+=this.vy;if(this.x<0||this.x>W)this.vx*=-1;if(this.y<0||this.y>H)this.vy*=-1;}draw(){ctx.beginPath();ctx.arc(this.x,this.y,this.sz,0,Math.PI*2);ctx.fillStyle=`rgba(90,120,45,${this.a})`;ctx.fill();}}
+function init(){resize();pts.length=0;for(let i=0;i<N;i++)pts.push(new P());}
+function loop(){ctx.clearRect(0,0,W,H);for(let i=0;i<pts.length;i++){pts[i].move();pts[i].draw();for(let j=i+1;j<pts.length;j++){const dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y,d=Math.hypot(dx,dy);if(d<DIST){ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);ctx.strokeStyle=`rgba(60,90,25,${(1-d/DIST)*.25})`;ctx.lineWidth=.8;ctx.stroke();}}const dx=pts[i].x-mx.x,dy=pts[i].y-mx.y,d=Math.hypot(dx,dy);if(d<MDIST){ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(mx.x,mx.y);ctx.strokeStyle=`rgba(100,140,45,${(1-d/MDIST)*.6})`;ctx.lineWidth=.8;ctx.stroke();}}requestAnimationFrame(loop);}
+window.addEventListener('resize',resize);window.addEventListener('mousemove',e=>{mx.x=e.clientX;mx.y=e.clientY;});window.addEventListener('mouseleave',()=>{mx.x=-999;mx.y=-999;});window.addEventListener('touchmove',e=>{mx.x=e.touches[0].clientX;mx.y=e.touches[0].clientY;},{passive:true});
+init();loop();
+const DAYS=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+const MONS=['January','February','March','April','May','June','July','August','September','October','November','December'];
+function tick(){const n=new Date();let h=n.getHours(),suf=h>=12?'PM':'AM';h=h%12||12;const m=String(n.getMinutes()).padStart(2,'0'),s=String(n.getSeconds()).padStart(2,'0');document.getElementById('clk').textContent=`${DAYS[n.getDay()]}, ${MONS[n.getMonth()]} ${n.getDate()} • ${h}:${m}:${s} ${suf}`;}
+tick();setInterval(tick,1000);
+</script>
 </body>
 </html>
